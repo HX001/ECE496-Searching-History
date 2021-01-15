@@ -68,7 +68,7 @@ function buildTypedUrlList(divName) {
         if(hours < 10){hours = '0'+hours;}
         if(minutes < 10){minutes = '0'+minutes;}
         var time = year+'/'+month+'/'+date+' '+hours+':'+minutes+':'+seconds;
-        URLs.push(url);
+        URLs.push("URL:" + url + " || Time: " + time);
         TIMES.push(time);
         var processVisitsWithUrl = function(url) {
           // We need the url of the visited item to process the visit.
@@ -80,7 +80,7 @@ function buildTypedUrlList(divName) {
         chrome.history.getVisits({url: url}, processVisitsWithUrl(url));
         numRequestsOutstanding++;
       }
-      console.log("Urls are:", URLS);
+      console.log("Urls are:", URLs);
       console.log("Times are:", TIMES);
       if (!numRequestsOutstanding) {
         onAllVisitsProcessed();
@@ -131,7 +131,7 @@ function buildTypedUrlList(divName) {
       return urlToCount[b] - urlToCount[a];
     });
 
-    buildPopupDom(divName, urlArray.slice(0, 10));
+    buildPopupDom(divName, urlArray.slice(0, 20));
   };
 }
 
