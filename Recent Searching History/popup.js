@@ -37,6 +37,7 @@ function buildPopupDom(divName, data) {
 // and show those links in a popup.
 function buildTypedUrlList(divName) {
   var URLs = [];
+  var TIMES = [];
   // To look for history items visited in the last week,
   // subtract a week of microseconds from the current time.
   var microsecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
@@ -57,7 +58,18 @@ function buildTypedUrlList(divName) {
       // For each history item, get details on all visits.
       for (var i = 0; i < historyItems.length; ++i) {
         var url = historyItems[i].url;
+        var currentTime = new Date(historyItems[i].lastVisitTime);
+        var year = currentTime.getFullYear();
+        var month = currentTime.getMonth();
+        var date = currentTime.getDate();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes()+1;
+        var seconds = currentTime.getSeconds();
+        if(hours < 10){hours = '0'+hours;}
+        if(minutes < 10){minutes = '0'+minutes;}
+        var time = year+'/'+month+'/'+date+' '+hours+':'+minutes+':'+seconds;
         URLs.push(url);
+        TIMES.push(time);
         var processVisitsWithUrl = function(url) {
           // We need the url of the visited item to process the visit.
           // Use a closure to bind the  url into the callback's args.
@@ -68,7 +80,8 @@ function buildTypedUrlList(divName) {
         chrome.history.getVisits({url: url}, processVisitsWithUrl(url));
         numRequestsOutstanding++;
       }
-      console.log("URLs are:", URLs);
+      console.log("Urls are:", URLS);
+      console.log("Times are:", TIMES);
       if (!numRequestsOutstanding) {
         onAllVisitsProcessed();
       }
