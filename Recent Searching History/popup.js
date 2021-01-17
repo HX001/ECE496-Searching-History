@@ -1,7 +1,3 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 // Event listner for clicks on links in a browser action popup.
 // Open the link in a new tab of the current window.
 function onAnchorClick(event) {
@@ -126,7 +122,7 @@ function buildTypedUrlList(divName) {
       urlArray.push(url);
     }
 
-    // Sort the URLs by the number of times the user typed them.
+    // Sort the URLs, Optional
     urlArray.sort(function(a, b) {
       return urlToCount[b] - urlToCount[a];
     });
