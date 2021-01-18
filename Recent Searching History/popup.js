@@ -117,11 +117,11 @@ function buildTypedUrlList(divName) {
     }
 
     // Sort the URLs, Optional
-    urlArray.sort(function(a, b) {
-      return urlToCount[b] - urlToCount[a];
-    });
+    // urlArray.sort(function(a, b) {
+    //   return urlToCount[b] - urlToCount[a];
+    // });
 
-    buildPopupDom(divName, urlArray.slice(0, 20));
+    buildPopupDom(divName, urlArray.slice(0, 30));
   };
 }
 
