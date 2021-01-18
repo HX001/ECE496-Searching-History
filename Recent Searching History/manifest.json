@@ -1,7 +1,7 @@
 {
   "name": "Recent URL History",
   "version": "1.0",
-  "description": "Reads your history, and shows the top ten pages you go to by typing the URL.",
+  "description": "Reads browser history, and shows the searching URL.",
   "permissions": [
     "history"
   ],

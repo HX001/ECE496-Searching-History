@@ -31,6 +31,7 @@ function buildPopupDom(divName, data) {
 
 // Search history to find up to ten links that a user has typed in,
 // and show those links in a popup.
+
 function buildTypedUrlList(divName) {
   var URLs = [];
   var TIMES = [];
@@ -39,10 +40,11 @@ function buildTypedUrlList(divName) {
   var microsecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
   var microsecondsPerHour = 1000 * 60 * 60
   var oneWeekAgo = (new Date).getTime() - microsecondsPerWeek;
-  var twoHoursAgo = (new Date).getTime() - 0.5 * microsecondsPerHour;
+  var twoHoursAgo = (new Date).getTime() -  microsecondsPerHour;
 
   // Track the number of callbacks from chrome.history.getVisits()
-  // that we expect to get.  When it reaches zero, we have all results.
+  // that we expect to get.
+  // When it reaches zero, we have all results.
   var numRequestsOutstanding = 0;
 
   chrome.history.search({
@@ -64,11 +66,11 @@ function buildTypedUrlList(divName) {
         if(hours < 10){hours = '0'+hours;}
         if(minutes < 10){minutes = '0'+minutes;}
         var time = year+'/'+month+'/'+date+' '+hours+':'+minutes+':'+seconds;
+
         URLs.push("URL:" + url + " || Time: " + time);
         TIMES.push(time);
+
         var processVisitsWithUrl = function(url) {
-          // We need the url of the visited item to process the visit.
-          // Use a closure to bind the  url into the callback's args.
           return function(visitItems) {
             processVisits(url, visitItems);
           };
@@ -83,13 +85,8 @@ function buildTypedUrlList(divName) {
       }
     });
 
-
-  // Maps URLs to a count of the number of times the user typed that URL into
-  // the omnibox.
   var urlToCount = {};
 
-  // Callback for chrome.history.getVisits().  Counts the number of
-  // times a user visited a URL by typing the address.
   var processVisits = function(url, visitItems) {
     for (var i = 0, ie = visitItems.length; i < ie; ++i) {
       // Ignore items unless the user typed the URL.
@@ -106,9 +103,6 @@ function buildTypedUrlList(divName) {
       // console.log("Count: ",  urlToCount[url]);
     }
 
-    // If this is the final outstanding call to processVisits(),
-    // then we have the final results.  Use them to build the list
-    // of URLs to show in the popup.
     if (!--numRequestsOutstanding) {
       onAllVisitsProcessed();
     }
