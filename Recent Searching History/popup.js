@@ -35,6 +35,8 @@ function buildPopupDom(divName, data) {
 function buildTypedUrlList(divName) {
   var URLs = [];
   var TIMES = [];
+  var jsonData = {};
+  let cacheName = 'Local Searching History';
   // To look for history items visited in the last week,
   // subtract a week of microseconds from the current time.
   var microsecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
@@ -69,6 +71,23 @@ function buildTypedUrlList(divName) {
 
         URLs.push("URL:" + url + " || Time: " + time);
         TIMES.push(time);
+        jsonData[url] = time;
+        var searchHistoryJson = localStorage.getItem(cacheName)
+        if (searchHistoryJson == null){
+          localStorage.setItem("Local Searching History", JSON.stringify(jsonData))
+        }
+
+        if (searchHistoryJson != null) {
+          // check if current URL is in Json
+          if (!searchHistoryJson.hasOwnProperty(url)) {
+            // TODO: if current URL is new, then call show messages WARNING MESSAGES
+
+            // Retrieve the object from storage
+            var retrievedObject = localStorage.getItem(cacheName);
+            retrievedObject[url] = time;
+            localStorage.setItem(cacheName, JSON.stringify(retrievedObject))
+          }
+        }
 
         var processVisitsWithUrl = function(url) {
           return function(visitItems) {
