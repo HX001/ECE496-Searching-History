@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+
+
+
 // Event listner for clicks on links in a browser action popup.
 // Open the link in a new tab of the current window.
 function onAnchorClick(event) {
@@ -35,8 +38,8 @@ function buildPopupDom(divName, data) {
 
 // Search history to find up to ten links that a user has typed in,
 // and show those links in a popup.
-function buildTypedUrlList(divName) {
-  var URLs = [];
+function buildTypedUrlList(divName, startTime) {
+  var URLS = [];
   var TIMES = [];
   // To look for history items visited in the last week,
   // subtract a week of microseconds from the current time.
@@ -52,7 +55,7 @@ function buildTypedUrlList(divName) {
   chrome.history.search({
         'text': '',              // Return every history item....
         maxResults: 100,
-        'startTime': twoHoursAgo  // that was accessed less than one week ago.
+        'startTime': startTime  // that was accessed less than one week ago.
     },
     function(historyItems) {
       // For each history item, get details on all visits.
@@ -60,15 +63,15 @@ function buildTypedUrlList(divName) {
         var url = historyItems[i].url;
         var currentTime = new Date(historyItems[i].lastVisitTime);
         var year = currentTime.getFullYear();
-        var month = currentTime.getMonth();
+        var month = currentTime.getMonth()+1;
         var date = currentTime.getDate();
         var hours = currentTime.getHours();
-        var minutes = currentTime.getMinutes()+1;
+        var minutes = currentTime.getMinutes();
         var seconds = currentTime.getSeconds();
         if(hours < 10){hours = '0'+hours;}
         if(minutes < 10){minutes = '0'+minutes;}
         var time = year+'/'+month+'/'+date+' '+hours+':'+minutes+':'+seconds;
-        URLs.push(url);
+        URLS.push(url);
         TIMES.push(time);
         var processVisitsWithUrl = function(url) {
           // We need the url of the visited item to process the visit.
@@ -133,8 +136,59 @@ function buildTypedUrlList(divName) {
 
     buildPopupDom(divName, urlArray.slice(0, 10));
   };
+};
+
+// chrome.alarms.onAlarm.addListener(function (alarm) {
+//
+//   buildTypedUrlList("search_Url_div");
+//
+// });
+
+// function getUserName() { // expects function(value){...}
+//   chrome.storage.local.get('userName', function(data){
+//     if(data.userName === undefined) {
+//       return false; // default value
+//     } else {
+//       return data.userName;
+//     }
+//   });
+// }
+
+
+function login() {
+
+  var userName = document.getElementById('userName').value;
+  var examName = document.getElementById('examName').value;
+  console.log(userName);
+  chrome.storage.local.set({userName : userName, examName: examName}, function(){
+    if(chrome.runtime.lastError) {
+      throw Error(chrome.runtime.lastError);
+    }
+  });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  buildTypedUrlList("search_Url_div");
+function result(divName) {
+
+  chrome.storage.local.get(['userName','examName'], function(data){
+    if(data.userName === undefined) {
+      document.getElementById(divName).innerHTML = "Unregister";
+    } else {
+      document.getElementById(divName).innerHTML = "Current Name:" + data.userName + "<br />" + "Current Exam:" + data.examName;
+      // document.getElementById("userName").innerHTML = data.userName;
+      // document.getElementById("examName").innerHTML = data.examName;
+
+      // a.href = data.userName;
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', function(evt) {
+  // Cache a reference to the status display SPAN
+  // Handle the bookmark form submit event with our addBookmark function
+  result('status-display');
+
+  document.getElementById('Login')
+      .addEventListener('submit', login);
+
+
 });

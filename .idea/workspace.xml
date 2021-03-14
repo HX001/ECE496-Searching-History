@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97a5acbf-aaed-4845-b305-84587a753cc2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Recent Searching History/background.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Recent Searching History/contentscript.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Recent Searching History/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recent Searching History/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Recent Searching History/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recent Searching History/popup.html" beforeDir="false" afterPath="$PROJECT_DIR$/Recent Searching History/popup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Recent Searching History/popup.js" beforeDir="false" afterPath="$PROJECT_DIR$/Recent Searching History/popup.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -10,6 +15,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,7 +63,16 @@
       <workItem from="1610503413721" duration="209000" />
       <workItem from="1610504003852" duration="1108000" />
       <workItem from="1610575636903" duration="2266000" />
-      <workItem from="1610597056882" duration="384000" />
+      <workItem from="1610597056882" duration="1802000" />
+      <workItem from="1610828936895" duration="888000" />
+      <workItem from="1611763615050" duration="8000" />
+      <workItem from="1612024829757" duration="575000" />
+      <workItem from="1612318026956" duration="794000" />
+      <workItem from="1615251915396" duration="14542000" />
+      <workItem from="1615476514900" duration="24331000" />
+      <workItem from="1615646704203" duration="8208000" />
+      <workItem from="1615699497446" duration="1546000" />
+      <workItem from="1615703378449" duration="5501000" />
     </task>
     <servers />
   </component>

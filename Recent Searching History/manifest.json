@@ -3,7 +3,23 @@
   "version": "1.0",
   "description": "Reads your history, and shows the top ten pages you go to by typing the URL.",
   "permissions": [
-    "history"
+    "history",
+    "alarms",
+    "background",
+    "tabs",
+    "webRequest",
+    "webNavigation",
+    "storage",
+    "http://0.0.0.0:5000/classifyurl"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["contentscript.js"]
+    }
   ],
   "browser_action": {
     "default_popup": "popup.html",
